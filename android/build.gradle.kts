@@ -71,6 +71,7 @@ android {
 }
 
 dependencies {
+    implementation("org.tensorflow:tensorflow-lite-select-tf-ops:+")
     testImplementation("org.jetbrains.kotlin:kotlin-test")
     testImplementation("org.mockito:mockito-core:5.0.0")
 }

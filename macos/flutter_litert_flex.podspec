@@ -1,30 +1,38 @@
-#
-# To learn more about a Podspec see http://guides.cocoapods.org/syntax/podspec.html.
-# Run `pod lib lint flutter_litert_flex.podspec` to validate before publishing.
-#
 Pod::Spec.new do |s|
   s.name             = 'flutter_litert_flex'
-  s.version          = '0.0.1'
-  s.summary          = 'A new Flutter plugin project.'
+  s.version          = '1.0.0'
+  s.summary          = 'FlexDelegate (SELECT_TF_OPS) addon for flutter_litert.'
   s.description      = <<-DESC
-A new Flutter plugin project.
+Adds the TensorFlow Lite Flex delegate native library to your macOS app,
+enabling SELECT_TF_OPS support for on-device training models with gradient
+ops like Conv2DBackpropFilter, Save, and Restore.
                        DESC
-  s.homepage         = 'http://example.com'
+  s.homepage         = 'https://github.com/hugocornellier/flutter_litert'
   s.license          = { :file => '../LICENSE' }
-  s.author           = { 'Your Company' => 'email@example.com' }
-
+  s.author           = { 'Hugo Cornellier' => 'hugo@hugocornellier.com' }
   s.source           = { :path => '.' }
-  s.source_files = 'Classes/**/*'
-
-  # If your plugin requires a privacy manifest, for example if it collects user
-  # data, update the PrivacyInfo.xcprivacy file to describe your plugin's
-  # privacy impact, and then uncomment this line. For more information,
-  # see https://developer.apple.com/documentation/bundleresources/privacy_manifest_files
-  # s.resource_bundles = {'flutter_litert_flex_privacy' => ['Resources/PrivacyInfo.xcprivacy']}
-
+  s.source_files     = 'Classes/**/*'
   s.dependency 'FlutterMacOS'
 
   s.platform = :osx, '10.11'
-  s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES' }
   s.swift_version = '5.0'
+  s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES' }
+
+  # Download the FlexDelegate dylib if not present.
+  # ~123 MB download, cached after first pod install.
+  require 'fileutils'
+  res_dir = File.join(__dir__, 'Resources')
+  FileUtils.mkdir_p(res_dir) unless File.exist?(res_dir)
+
+  lib_name = 'libtensorflowlite_flex-mac.dylib'
+  lib_path = File.join(res_dir, lib_name)
+
+  unless File.exist?(lib_path)
+    puts '[flutter_litert_flex] Downloading FlexDelegate macOS dylib...'
+    system("curl -sL 'https://github.com/hugocornellier/flutter_litert/releases/download/flex-v1.0.0/#{lib_name}' -o '#{lib_path}'")
+    abort '[flutter_litert_flex] ERROR: Failed to download FlexDelegate macOS dylib. Check your internet connection.' unless $?.success?
+    puts '[flutter_litert_flex] FlexDelegate macOS dylib installed.'
+  end
+
+  s.resources = [lib_path]
 end
