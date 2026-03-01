@@ -1,3 +1,8 @@
+## 0.0.2
+
+* Fix Android: add method channel for FlexDelegate creation via Java API (the Maven artifact only exports JNI symbols, not C plugin symbols).
+* Add explicit `org.tensorflow:tensorflow-lite` base dependency for the `Delegate` interface.
+
 ## 0.0.1
 
 * Initial release.

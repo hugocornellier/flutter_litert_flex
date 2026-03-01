@@ -2,7 +2,7 @@ name: flutter_litert_flex
 description: >-
   FlexDelegate (SELECT_TF_OPS) addon for flutter_litert. Bundles the
   TensorFlow Lite Flex delegate native library for all platforms at build time.
-version: 0.0.1
+version: 0.0.2
 homepage: https://github.com/hugocornellier/flutter_litert
 repository: https://github.com/hugocornellier/flutter_litert_flex
 issue_tracker: https://github.com/hugocornellier/flutter_litert_flex/issues
