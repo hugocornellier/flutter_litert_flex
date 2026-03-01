@@ -34,5 +34,5 @@ ops like Conv2DBackpropFilter, Save, and Restore.
     puts '[flutter_litert_flex] FlexDelegate macOS dylib installed.'
   end
 
-  s.resources = [lib_path]
+  s.resources = ["Resources/#{lib_name}"]
 end

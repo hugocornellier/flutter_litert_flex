@@ -1,3 +1,7 @@
+## 0.0.3
+
+* Fix macOS podspec: use relative resource path (fixes CocoaPods validation error).
+
 ## 0.0.2
 
 * Fix Android: add method channel for FlexDelegate creation via Java API (the Maven artifact only exports JNI symbols, not C plugin symbols).
