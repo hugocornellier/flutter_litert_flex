@@ -35,6 +35,6 @@ migrate_working_dir/
 # Downloaded native libraries (cached locally after first build)
 ios/TensorFlowLiteFlex.xcframework/
 ios/_flex_ios.zip
-macos/Resources/
+macos/Resources/*.dylib
 linux/libtensorflowlite_flex-linux.so
 windows/libtensorflowlite_flex-win.dll
