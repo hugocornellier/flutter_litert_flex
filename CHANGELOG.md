@@ -1,3 +1,7 @@
+## 0.0.4
+
+* Fix iOS FlexDelegate: rewrite podspec dedup logic (subset-check instead of naive hash removal), add `-force_load` linker flags, and force-reference plugin symbols to prevent stripping.
+
 ## 0.0.3
 
 * Fix macOS podspec: use relative resource path (fixes CocoaPods validation error).
