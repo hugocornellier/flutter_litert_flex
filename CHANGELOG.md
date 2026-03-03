@@ -1,3 +1,7 @@
+## 0.0.5
+
+* Fix Linux: add plugin shared library target to CMakeLists (fixes `No target "flutter_litert_flex_plugin"` build error).
+
 ## 0.0.4
 
 * Fix iOS FlexDelegate: rewrite podspec dedup logic (subset-check instead of naive hash removal), add `-force_load` linker flags, and force-reference plugin symbols to prevent stripping.

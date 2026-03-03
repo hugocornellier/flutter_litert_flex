@@ -2,7 +2,7 @@ require 'fileutils'
 
 Pod::Spec.new do |s|
   s.name             = 'flutter_litert_flex'
-  s.version          = '0.0.4'
+  s.version          = '0.0.5'
   s.summary          = 'FlexDelegate (SELECT_TF_OPS) addon for flutter_litert.'
   s.description      = <<-DESC
 Adds the TensorFlow Lite Flex delegate native library to your iOS app,
