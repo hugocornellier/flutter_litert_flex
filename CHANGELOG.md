@@ -1,3 +1,11 @@
+## 0.0.7
+
+* Fix SPM: add missing `FlutterFramework` dependency to iOS and macOS `Package.swift`.
+
+## 0.0.6
+
+* Add SPM support for iOS and macOS
+
 ## 0.0.5
 
 * Fix Linux: add plugin shared library target to CMakeLists (fixes `No target "flutter_litert_flex_plugin"` build error).

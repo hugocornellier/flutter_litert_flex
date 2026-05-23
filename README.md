@@ -22,8 +22,8 @@ If your model only uses `TFLITE_BUILTINS`, you don't need this package.
 
 ```yaml
 dependencies:
-  flutter_litert: ^1.0.3
-  flutter_litert_flex: ^0.0.1
+  flutter_litert: ^2.5.6
+  flutter_litert_flex: ^0.0.7
 ```
 
 That's it. The native libraries are downloaded automatically on the first build.
@@ -44,8 +44,8 @@ No `FlexDelegate.download()` call needed when using this package.
 
 | Platform | Library | Size | Mechanism |
 |----------|---------|------|-----------|
-| iOS | `TensorFlowLiteFlex.xcframework` | ~492 MB | CocoaPods (static framework) |
-| macOS | `libtensorflowlite_flex-mac.dylib` | ~123 MB | CocoaPods (bundled resource) |
+| iOS | `TensorFlowLiteFlex.xcframework` | ~492 MB | CocoaPods or SPM (static framework) |
+| macOS | `libtensorflowlite_flex-mac.dylib` | ~123 MB | CocoaPods or SPM (bundled resource) |
 | Linux | `libtensorflowlite_flex-linux.so` | ~333 MB | CMake download |
 | Windows | `libtensorflowlite_flex-win.dll` | ~227 MB | CMake download |
 | Android | `tensorflow-lite-select-tf-ops` | auto | Maven dependency |

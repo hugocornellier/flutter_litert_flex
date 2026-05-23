@@ -38,3 +38,7 @@ ios/_flex_ios.zip
 macos/Resources/*.dylib
 linux/libtensorflowlite_flex-linux.so
 windows/libtensorflowlite_flex-win.dll
+
+# Preprocessed SPM xcframework zips (uploaded to GitHub releases, not stored in repo)
+*.xcframework.zip
+scripts/*.xcframework.zip
