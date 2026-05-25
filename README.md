@@ -12,8 +12,8 @@ FlexDelegate (SELECT_TF_OPS) addon for [`flutter_litert`](https://pub.dev/packag
 
 The Flex delegate is required when your `.tflite` model uses TensorFlow ops that aren't available as TFLite builtins. Common cases:
 
-- **On-device training** with convolutional or batch-normalized layers (gradient ops like `Conv2DBackpropFilter`)
-- **Checkpoint-based persistence** using `tf.raw_ops.Save`/`Restore`
+- On-device training with convolutional or batch-normalized layers (gradient ops like `Conv2DBackpropFilter`)
+- Checkpoint-based persistence using `tf.raw_ops.Save`/`Restore`
 - Models converted with `SELECT_TF_OPS` enabled
 
 If your model only uses `TFLITE_BUILTINS`, you don't need this package.
@@ -22,8 +22,8 @@ If your model only uses `TFLITE_BUILTINS`, you don't need this package.
 
 ```yaml
 dependencies:
-  flutter_litert: ^2.5.6
-  flutter_litert_flex: ^0.0.7
+  flutter_litert: ^2.5.8
+  flutter_litert_flex: ^1.0.0
 ```
 
 That's it. The native libraries are downloaded automatically on the first build.

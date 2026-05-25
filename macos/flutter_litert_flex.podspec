@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'flutter_litert_flex'
-  s.version          = '0.0.5'
+  s.version          = '1.0.0'
   s.summary          = 'FlexDelegate (SELECT_TF_OPS) addon for flutter_litert.'
   s.description      = <<-DESC
 Adds the TensorFlow Lite Flex delegate native library to your macOS app,
@@ -14,7 +14,7 @@ ops like Conv2DBackpropFilter, Save, and Restore.
   s.source_files     = 'Classes/**/*'
   s.dependency 'FlutterMacOS'
 
-  s.platform = :osx, '10.11'
+  s.platform = :osx, '10.15'
   s.swift_version = '5.0'
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES' }
 

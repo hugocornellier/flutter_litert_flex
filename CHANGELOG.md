@@ -1,3 +1,11 @@
+## 1.0.0
+
+* Raise minimum deployment targets to iOS 13.0 / macOS 10.15 to satisfy Swift Package Manager's `FlutterFramework` requirement (fixes SPM build failures).
+
+## 0.0.8
+
+* Migrate example app from CocoaPods to Swift Package Manager on iOS and macOS.
+
 ## 0.0.7
 
 * Fix SPM: add missing `FlutterFramework` dependency to iOS and macOS `Package.swift`.
