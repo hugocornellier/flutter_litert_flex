@@ -17,6 +17,9 @@ dependencies:
   flutter:
     sdk: flutter
 
+  flutter_litert:
+    path: ../../flutter_litert
+
   flutter_litert_flex:
     # When depending on this package from a real application you should use:
     #   flutter_litert_flex: ^x.y.z

@@ -1,3 +1,7 @@
+## 1.1.0
+
+* Fix iOS Swift Package Manager builds: repackage the FlexDelegate xcframework (correct simulator slice) so SELECT_TF_OPS works under SPM, including on the iOS simulator.
+
 ## 1.0.0
 
 * Raise minimum deployment targets to iOS 13.0 / macOS 10.15 to satisfy Swift Package Manager's `FlutterFramework` requirement (fixes SPM build failures).

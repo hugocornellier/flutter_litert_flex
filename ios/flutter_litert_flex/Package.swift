@@ -14,10 +14,27 @@ let package = Package(
         .package(name: "FlutterFramework", path: "../FlutterFramework")
     ],
     targets: [
+        // This is a *static-library* xcframework (libTensorFlowLiteFlex.a), NOT a
+        // `.framework`, and that's deliberate. The flex delegate entry points
+        // (tflite_plugin_create_delegate / _destroy_delegate) are only resolved at
+        // runtime via DynamicLibrary.process(), so they must be force-loaded into the
+        // app or the linker strips them. `-all_load` (below) force-loads `-l` static
+        // libraries — but it does NOT reach `-framework`-linked frameworks, and SPM
+        // only *embeds* a framework xcframework rather than linking it, so shipping a
+        // `.framework` left those symbols undefined under SPM. A static-library
+        // xcframework makes SPM link it with `-l`, so `-all_load` pulls in the
+        // SELECT_TF_OPS registrars. (The slice binary is already an `ar` archive, so
+        // repackaging is just: rename it to libTensorFlowLiteFlex.a and run
+        // `xcodebuild -create-xcframework -library`.)
+        //
+        // Consumers must also link `flutter_litert` — the delegate references core
+        // TFLite symbols (TfLiteTensor*, XNNPack) that flutter_litert provides.
+        // Simulator slice is arm64-only (Apple Silicon); see flutter_litert's README
+        // for the x86_64-simulator note.
         .binaryTarget(
             name: "TensorFlowLiteFlex",
-            url: "https://github.com/hugocornellier/flutter_litert/releases/download/flex-v1.1.0/TensorFlowLiteFlex-spm.xcframework.zip",
-            checksum: "d79dad540ebc695da7b7217f1b1ff4034dc27a420904473c29f1b55cc4c3c5af"
+            url: "https://github.com/hugocornellier/flutter_litert/releases/download/flex-v1.1.1/TensorFlowLiteFlex-spm.xcframework.zip",
+            checksum: "7815ab08883f04e94225ab7d0c4af0d5ee6c60c86e587491ec8361c5d0728c9f"
         ),
         // Separate ObjC target: forces the linker to pull in the flex delegate
         // entry points from TensorFlowLiteFlex, which transitively includes the

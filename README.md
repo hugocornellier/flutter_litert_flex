@@ -22,11 +22,13 @@ If your model only uses `TFLITE_BUILTINS`, you don't need this package.
 
 ```yaml
 dependencies:
-  flutter_litert: ^2.5.8
-  flutter_litert_flex: ^1.0.0
+  flutter_litert: ^2.6.0
+  flutter_litert_flex: ^1.1.0
 ```
 
 That's it. The native libraries are downloaded automatically on the first build.
+
+> **iOS + Swift Package Manager:** `flutter_litert_flex` must be used alongside `flutter_litert` — the FlexDelegate links against core TFLite symbols that `flutter_litert` provides. Like `flutter_litert`, its xcframework ships `arm64` device + `arm64` *simulator* slices, so iOS **simulator** builds require an **Apple Silicon Mac**; the x86_64 (Intel) simulator is not supported under SPM. CocoaPods builds are unaffected.
 
 ## Usage
 

@@ -7,7 +7,7 @@
 ///
 /// ```yaml
 /// dependencies:
-///   flutter_litert: ^1.0.3
-///   flutter_litert_flex: ^1.0.0
+///   flutter_litert: ^2.6.0
+///   flutter_litert_flex: ^1.1.0
 /// ```
 library;
