@@ -1,3 +1,14 @@
+## 1.2.0
+
+* Fix Android builds under AGP 9 / Flutter 3.44+ with built-in Kotlin. The
+  plugin previously applied the legacy Kotlin Gradle Plugin unconditionally,
+  which AGP 9 rejects ("The 'org.jetbrains.kotlin.android' plugin is no longer
+  required since AGP 9.0", or "Cannot add extension with name 'kotlin'"). The
+  Android build script now applies `kotlin-android` only on AGP < 9 and lets
+  built-in Kotlin compile the sources on AGP >= 9, with the Kotlin JVM target
+  pinned to 17. Verified against AGP 8.11.1 and 9.0.1 with built-in Kotlin both
+  enabled and disabled. No API or minimum-version changes.
+
 ## 1.1.0
 
 * Fix iOS Swift Package Manager builds: repackage the FlexDelegate xcframework (correct simulator slice) so SELECT_TF_OPS works under SPM, including on the iOS simulator.

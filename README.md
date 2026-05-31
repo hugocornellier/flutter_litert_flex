@@ -22,8 +22,8 @@ If your model only uses `TFLITE_BUILTINS`, you don't need this package.
 
 ```yaml
 dependencies:
-  flutter_litert: ^2.6.0
-  flutter_litert_flex: ^1.1.0
+  flutter_litert: ^2.8.1
+  flutter_litert_flex: ^1.2.0
 ```
 
 That's it. The native libraries are downloaded automatically on the first build.

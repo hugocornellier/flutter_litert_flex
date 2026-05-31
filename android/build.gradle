@@ -1,0 +1,89 @@
+group 'com.hugocornellier.flutter_litert_flex'
+version '1.0-SNAPSHOT'
+
+buildscript {
+    ext.kotlin_version = '2.2.20'
+    repositories {
+        google()
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:8.11.1'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
+apply plugin: 'com.android.library'
+
+// AGP 9 ships built-in Kotlin and rejects the legacy Kotlin Gradle Plugin
+// ("The 'org.jetbrains.kotlin.android' plugin is no longer required ...").
+// Apply KGP only on AGP < 9; on AGP >= 9 built-in Kotlin compiles the sources.
+// Declaring it here (even guarded) also stops the Flutter Gradle plugin from
+// auto-applying KGP to this module, which AGP 9 would otherwise reject.
+def agpMajor = com.android.Version.ANDROID_GRADLE_PLUGIN_VERSION.tokenize('.')[0] as int
+if (agpMajor < 9) {
+    apply plugin: 'kotlin-android'
+}
+
+android {
+    namespace 'com.hugocornellier.flutter_litert_flex'
+
+    compileSdk 36
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+        test.java.srcDirs += 'src/test/kotlin'
+    }
+
+    defaultConfig {
+        minSdk 24
+    }
+
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+            all {
+                it.useJUnitPlatform()
+
+                it.outputs.upToDateWhen { false }
+
+                it.testLogging {
+                    events 'passed', 'skipped', 'failed', 'standardOut', 'standardError'
+                    showStandardStreams = true
+                }
+            }
+        }
+    }
+}
+
+// Pin the Kotlin JVM target to 17 to match Java. Works under both legacy KGP
+// (AGP < 9) and built-in Kotlin (AGP >= 9). Guarded so an AGP 9 setup without
+// built-in Kotlin (no kotlin extension registered) is skipped rather than
+// erroring on the kotlin {} DSL.
+if (project.extensions.findByName('kotlin') != null) {
+    kotlin {
+        compilerOptions {
+            jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17
+        }
+    }
+}
+
+dependencies {
+    implementation 'org.tensorflow:tensorflow-lite:+'
+    implementation 'org.tensorflow:tensorflow-lite-select-tf-ops:+'
+    testImplementation 'org.jetbrains.kotlin:kotlin-test'
+    testImplementation 'org.mockito:mockito-core:5.0.0'
+}
