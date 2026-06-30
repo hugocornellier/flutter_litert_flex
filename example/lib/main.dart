@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
             padding: EdgeInsets.all(24),
             child: Text(
               'This plugin bundles the TensorFlow Lite Flex delegate '
-              'native library. No Dart API is needed — just add '
+              'native library. No Dart API is needed; just add '
               'flutter_litert_flex to your pubspec.yaml and use '
               'FlexDelegate() from flutter_litert.',
               textAlign: TextAlign.center,

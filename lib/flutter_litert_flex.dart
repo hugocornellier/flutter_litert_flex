@@ -2,7 +2,7 @@
 ///
 /// Adding this package to your `pubspec.yaml` automatically downloads and
 /// bundles the FlexDelegate native library (~123-492 MB depending on platform)
-/// at build time. No Dart code changes needed — just use `FlexDelegate()` from
+/// at build time. No Dart code changes needed; just use `FlexDelegate()` from
 /// `package:flutter_litert/flutter_litert.dart` as usual.
 ///
 /// ```yaml

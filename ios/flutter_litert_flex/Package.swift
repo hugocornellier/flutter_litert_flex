@@ -19,7 +19,7 @@ let package = Package(
         // (tflite_plugin_create_delegate / _destroy_delegate) are only resolved at
         // runtime via DynamicLibrary.process(), so they must be force-loaded into the
         // app or the linker strips them. `-all_load` (below) force-loads `-l` static
-        // libraries — but it does NOT reach `-framework`-linked frameworks, and SPM
+        // libraries, but it does NOT reach `-framework`-linked frameworks, and SPM
         // only *embeds* a framework xcframework rather than linking it, so shipping a
         // `.framework` left those symbols undefined under SPM. A static-library
         // xcframework makes SPM link it with `-l`, so `-all_load` pulls in the
@@ -27,7 +27,7 @@ let package = Package(
         // repackaging is just: rename it to libTensorFlowLiteFlex.a and run
         // `xcodebuild -create-xcframework -library`.)
         //
-        // Consumers must also link `flutter_litert` — the delegate references core
+        // Consumers must also link `flutter_litert`; the delegate references core
         // TFLite symbols (TfLiteTensor*, XNNPack) that flutter_litert provides.
         // Simulator slice is arm64-only (Apple Silicon); see flutter_litert's README
         // for the x86_64-simulator note.

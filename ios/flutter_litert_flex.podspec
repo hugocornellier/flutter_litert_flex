@@ -239,7 +239,7 @@ with open(archive, 'rb') as f:
   # -force_load ensures ALL .o files from TensorFlowLiteFlex are loaded,
   # including C++ static initializers that register TF op kernels. Without
   # this, the linker only loads .o files referenced by other code, and TF op
-  # registrations never run — causing NULL function pointer crashes at runtime.
+  # registrations never run, causing NULL function pointer crashes at runtime.
   # We use SDK-conditional paths since the xcframework has per-platform slices.
   flex_src = '$(PODS_ROOT)/../.symlinks/plugins/flutter_litert_flex/ios/TensorFlowLiteFlex.xcframework'
   s.user_target_xcconfig = {

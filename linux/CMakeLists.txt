@@ -21,7 +21,7 @@ target_include_directories(${PLUGIN_NAME} INTERFACE
 target_link_libraries(${PLUGIN_NAME} PRIVATE flutter)
 target_link_libraries(${PLUGIN_NAME} PRIVATE PkgConfig::GTK)
 
-# FlexDelegate native library — downloaded once, cached in plugin directory.
+# FlexDelegate native library: downloaded once, cached in plugin directory.
 set(FLEX_LIB "libtensorflowlite_flex-linux.so")
 set(FLEX_URL "https://github.com/hugocornellier/flutter_litert/releases/download/flex-v1.0.0/${FLEX_LIB}")
 set(FLEX_PATH "${CMAKE_CURRENT_SOURCE_DIR}/${FLEX_LIB}")

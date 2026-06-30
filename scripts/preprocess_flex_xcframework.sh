@@ -7,7 +7,7 @@
 #   3. Deduplicates .o members: removes files whose strong symbols are fully
 #      covered by another file with the same base name (Bazel build artefact)
 #   4. Removes .o members that reference external symbols unavailable in the
-#      framework (WebP, ICU, protobuf compiler) — these cause linker errors
+#      framework (WebP, ICU, protobuf compiler); these cause linker errors
 #   5. Rebuilds the static archive
 #   6. Zips the result ready for a GitHub Release upload
 #
