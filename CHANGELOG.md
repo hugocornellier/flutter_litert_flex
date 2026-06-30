@@ -1,3 +1,17 @@
+## 1.3.0
+
+* Complete the AGP 9 fix from 1.2.0. The previous guard applied `kotlin-android`
+  only on AGP < 9, which left AGP 9 builds with no Kotlin compiler at all when the
+  consumer disables built-in Kotlin via `android.builtInKotlin=false` (the flag the
+  Flutter AGP-9 migrator adds to apps). With neither built-in Kotlin nor KGP active,
+  the plugin's Kotlin class was never compiled and consumer apps failed at
+  GeneratedPluginRegistrant with "cannot find symbol class FlutterLitertFlexPlugin".
+  The Android build script now also applies KGP when built-in Kotlin is disabled
+  (the same logic flutter_litert uses), so there is always a Kotlin compiler.
+  Verified with a clean `flutter build apk` under AGP 9.2.1 with
+  `builtInKotlin=false`. The example app's Kotlin Gradle Plugin application was made
+  conditional the same way.
+
 ## 1.2.0
 
 * Fix Android builds under AGP 9 / Flutter 3.44+ with built-in Kotlin. The
