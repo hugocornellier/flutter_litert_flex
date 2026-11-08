@@ -1,3 +1,20 @@
+## 2.0.0
+
+* **Breaking:** Android is removed. flutter_litert 4.0.0 runs on LiteRT 2.x on
+  Android, and LiteRT 2.x has no flex delegate (Select TF ops), so there is no
+  Android library left to bundle. The Android plugin, its Gradle build (which
+  pulled `tensorflow-lite` and `tensorflow-lite-select-tf-ops`) and the
+  example's Android app are gone. On Android, flutter_litert 4.0.0 reports
+  `FlexDelegate.isAvailable` as `false` and `FlexDelegate.create()` throws an
+  `UnsupportedError`. Android apps that need flex can stay on flutter_litert
+  3.10.x with flutter_litert_flex 1.3.0, or reconvert the model to LiteRT
+  built-in ops.
+* **Breaking:** requires flutter_litert 4.0.0. The package now depends on
+  `flutter_litert: ^4.0.0`, so pub can no longer pair it with an older
+  flutter_litert.
+* iOS, macOS, Linux and Windows are unchanged: same Flex delegate libraries,
+  same build-time download.
+
 ## 1.3.0
 
 * Complete the AGP 9 fix from 1.2.0. The previous guard applied `kotlin-android`
