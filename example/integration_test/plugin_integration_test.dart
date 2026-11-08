@@ -1,15 +1,18 @@
+import 'package:flutter_litert/flutter_litert.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  testWidgets('app builds and runs with flutter_litert_flex', (
+  testWidgets('flutter_litert_flex bundles a FlexDelegate that loads', (
     WidgetTester tester,
   ) async {
-    // If the app builds and runs, the native library bundling worked.
-    // The actual FlexDelegate functionality is tested via flutter_litert's
+    // If the app builds and the delegate loads, the native library bundling
+    // worked. Running SELECT_TF_OPS models is tested via flutter_litert's
     // integration tests.
-    expect(true, isTrue);
+    expect(FlexDelegate.isAvailable, isTrue);
+    final flex = await FlexDelegate.create();
+    flex.delete();
   });
 }
