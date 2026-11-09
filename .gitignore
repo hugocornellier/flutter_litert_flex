@@ -36,6 +36,7 @@ migrate_working_dir/
 ios/TensorFlowLiteFlex.xcframework/
 ios/_flex_ios.zip
 macos/Resources/*.dylib
+macos/Resources/*.dylib.download
 linux/libtensorflowlite_flex-linux.so
 linux/libtensorflowlite_flex-linux.so.download
 windows/libtensorflowlite_flex-win.dll

@@ -2,7 +2,8 @@
 # Preprocesses TensorFlowLiteFlex.xcframework for SPM compatibility.
 #
 # What this does (mirroring the CocoaPods podspec logic):
-#   1. Downloads the raw xcframework from GitHub Releases
+#   1. Downloads the raw xcframework from GitHub Releases and checks its
+#      SHA-256 (DOWNLOAD_URL and DOWNLOAD_SHA256 can be overridden)
 #   2. Splits the fat simulator binary (arm64+x86_64) into a thin arm64 slice
 #   3. Deduplicates .o members: removes files whose strong symbols are fully
 #      covered by another file with the same base name (Bazel build artefact)
@@ -16,7 +17,8 @@
 
 set -euo pipefail
 
-DOWNLOAD_URL="https://github.com/hugocornellier/flutter_litert/releases/download/flex-v1.0.0/TensorFlowLiteFlex-ios.xcframework.zip"
+DOWNLOAD_URL="${DOWNLOAD_URL:-https://github.com/hugocornellier/flutter_litert/releases/download/flex-v2.0.0/TensorFlowLiteFlex-ios.xcframework.zip}"
+DOWNLOAD_SHA256="${DOWNLOAD_SHA256:-109b3b7857f3d692eabe6f9543f5c93a66add382e2f33d69ad4a0623ee246565}"
 XCFW="TensorFlowLiteFlex.xcframework"
 OUT_ZIP="TensorFlowLiteFlex-spm.xcframework.zip"
 WORK_DIR="$(mktemp -d)"
@@ -25,8 +27,9 @@ trap 'rm -rf "$WORK_DIR"' EXIT
 echo "[preprocess] Working in $WORK_DIR"
 
 # 1. Download
-echo "[preprocess] Downloading xcframework (~123 MB)..."
+echo "[preprocess] Downloading xcframework (~500 MB)..."
 curl -sL "$DOWNLOAD_URL" -o "$WORK_DIR/raw.zip"
+echo "$DOWNLOAD_SHA256  $WORK_DIR/raw.zip" | shasum -a 256 -c -
 
 # 2. Unzip
 echo "[preprocess] Extracting..."
@@ -230,7 +233,7 @@ echo "SHA-256:  $CHECKSUM"
 echo "=========================================="
 echo ""
 echo "Next steps:"
-echo "  1. Upload $OUT_ZIP to a GitHub release (e.g. flex-v1.1.0)"
+echo "  1. Upload $OUT_ZIP to a GitHub release (e.g. flex-v2.0.0)"
 echo "  2. Update ios/Package.swift:"
 echo "       url: \"<release-download-url>\""
 echo "       checksum: \"$CHECKSUM\""

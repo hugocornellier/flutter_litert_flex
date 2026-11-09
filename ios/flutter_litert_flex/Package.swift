@@ -33,8 +33,8 @@ let package = Package(
         // for the x86_64-simulator note.
         .binaryTarget(
             name: "TensorFlowLiteFlex",
-            url: "https://github.com/hugocornellier/flutter_litert/releases/download/flex-v1.1.1/TensorFlowLiteFlex-spm.xcframework.zip",
-            checksum: "7815ab08883f04e94225ab7d0c4af0d5ee6c60c86e587491ec8361c5d0728c9f"
+            url: "https://github.com/hugocornellier/flutter_litert/releases/download/flex-v2.0.0/TensorFlowLiteFlex-spm.xcframework.zip",
+            checksum: "14ac2a696c0e618d46c5176d15488d3bc350a1d238f87fe9764eeea6160e5365"
         ),
         // Separate ObjC target: forces the linker to pull in the flex delegate
         // entry points from TensorFlowLiteFlex, which transitively includes the

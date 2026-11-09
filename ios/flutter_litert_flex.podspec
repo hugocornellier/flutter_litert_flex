@@ -1,8 +1,9 @@
+require 'digest'
 require 'fileutils'
 
 Pod::Spec.new do |s|
   s.name             = 'flutter_litert_flex'
-  s.version          = '1.1.0'
+  s.version          = '2.1.0'
   s.summary          = 'FlexDelegate (SELECT_TF_OPS) addon for flutter_litert.'
   s.description      = <<-DESC
 Adds the TensorFlow Lite Flex delegate native library to your iOS app,
@@ -24,74 +25,32 @@ ops like Conv2DBackpropFilter, Save, and Restore.
   s.weak_frameworks = 'CoreML'
 
   # Download the FlexDelegate xcframework if not present.
-  # ~123 MB download, cached after first pod install.
+  # ~500 MB download, checked against flex_zip_sha256 and cached after the
+  # first pod install. A cached copy from another release is replaced.
   framework_dir = __dir__
   flex_xcfw = 'TensorFlowLiteFlex.xcframework'
+  flex_url = 'https://github.com/hugocornellier/flutter_litert/releases/download/flex-v2.0.0/TensorFlowLiteFlex-ios.xcframework.zip'
+  flex_zip_sha256 = '109b3b7857f3d692eabe6f9543f5c93a66add382e2f33d69ad4a0623ee246565'
   marker = File.join(framework_dir, flex_xcfw, 'ios-arm64',
                      'TensorFlowLiteFlex.framework', 'TensorFlowLiteFlex')
+  source_stamp = File.join(framework_dir, flex_xcfw, '.source_sha256')
 
-  unless File.exist?(marker)
+  unless File.exist?(marker) && File.exist?(source_stamp) &&
+         File.read(source_stamp).strip == flex_zip_sha256
+    FileUtils.rm_rf(File.join(framework_dir, flex_xcfw))
     puts '[flutter_litert_flex] Downloading FlexDelegate iOS xcframework...'
     zip = File.join(framework_dir, '_flex_ios.zip')
-    system("curl -sL 'https://github.com/hugocornellier/flutter_litert/releases/download/flex-v1.0.0/TensorFlowLiteFlex-ios.xcframework.zip' -o '#{zip}'")
+    system("curl -fsSL --retry 3 '#{flex_url}' -o '#{zip}'")
     abort '[flutter_litert_flex] ERROR: Failed to download FlexDelegate iOS xcframework. Check your internet connection.' unless $?.success?
-    system("unzip -qo '#{zip}' -d '#{framework_dir}'")
-    File.delete(zip) if File.exist?(zip)
-
-    # The release xcframework has a fat simulator binary (arm64+x86_64).
-    # CocoaPods' ruby-macho can't parse fat archives, so we extract the
-    # arm64 slice into a separate thin simulator directory.
-    fat_sim = File.join(framework_dir, flex_xcfw, 'ios-arm64_x86_64-simulator',
-                        'TensorFlowLiteFlex.framework')
-    if File.exist?(fat_sim)
-      thin_sim = File.join(framework_dir, flex_xcfw, 'ios-arm64-simulator',
-                           'TensorFlowLiteFlex.framework')
-      FileUtils.mkdir_p(File.join(thin_sim, 'Modules'))
-      system("lipo -thin arm64 '#{File.join(fat_sim, 'TensorFlowLiteFlex')}' " \
-             "-output '#{File.join(thin_sim, 'TensorFlowLiteFlex')}'")
-      modulemap = File.join(fat_sim, 'Modules', 'module.modulemap')
-      FileUtils.cp(modulemap, File.join(thin_sim, 'Modules')) if File.exist?(modulemap)
-      FileUtils.rm_rf(File.join(framework_dir, flex_xcfw, 'ios-arm64_x86_64-simulator'))
-
-      # Update Info.plist for thin slices
-      File.write(File.join(framework_dir, flex_xcfw, 'Info.plist'), <<~PLIST)
-        <?xml version="1.0" encoding="UTF-8"?>
-        <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-        <plist version="1.0">
-        <dict>
-        	<key>AvailableLibraries</key>
-        	<array>
-        		<dict>
-        			<key>LibraryIdentifier</key>
-        			<string>ios-arm64</string>
-        			<key>LibraryPath</key>
-        			<string>TensorFlowLiteFlex.framework</string>
-        			<key>SupportedArchitectures</key>
-        			<array><string>arm64</string></array>
-        			<key>SupportedPlatform</key>
-        			<string>ios</string>
-        		</dict>
-        		<dict>
-        			<key>LibraryIdentifier</key>
-        			<string>ios-arm64-simulator</string>
-        			<key>LibraryPath</key>
-        			<string>TensorFlowLiteFlex.framework</string>
-        			<key>SupportedArchitectures</key>
-        			<array><string>arm64</string></array>
-        			<key>SupportedPlatform</key>
-        			<string>ios</string>
-        			<key>SupportedPlatformVariant</key>
-        			<string>simulator</string>
-        		</dict>
-        	</array>
-        	<key>CFBundlePackageType</key>
-        	<string>XFWK</string>
-        	<key>XCFrameworkFormatVersion</key>
-        	<string>1.0</string>
-        </dict>
-        </plist>
-      PLIST
+    actual_sha256 = Digest::SHA256.file(zip).hexdigest
+    unless actual_sha256 == flex_zip_sha256
+      File.delete(zip)
+      abort "[flutter_litert_flex] ERROR: FlexDelegate iOS xcframework SHA-256 mismatch: expected #{flex_zip_sha256}, got #{actual_sha256}."
     end
+    system("unzip -qo '#{zip}' -d '#{framework_dir}'")
+    abort '[flutter_litert_flex] ERROR: Failed to unzip FlexDelegate iOS xcframework.' unless $?.success?
+    File.delete(zip) if File.exist?(zip)
+    File.write(source_stamp, flex_zip_sha256)
 
     puts '[flutter_litert_flex] FlexDelegate iOS xcframework installed.'
   end
