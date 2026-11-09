@@ -1,3 +1,22 @@
+## 2.1.0
+
+* The Flex delegate libraries for iOS, macOS, Linux and Windows are built
+  from TensorFlow v2.21.0 (they were v2.20.0), matching the TensorFlow Lite
+  runtime of flutter_litert 4.1.0. They are downloaded from the
+  `flex-v2.0.0` release of flutter_litert.
+* Requires
+  [flutter_litert 4.1.0](https://pub.dev/packages/flutter_litert/versions/4.1.0):
+  the package now depends on `flutter_litert: ^4.1.0`.
+* Every native download is checked against a pinned SHA-256 (CocoaPods on iOS
+  and macOS, CMake on Linux and Windows, as SwiftPM already did), and the
+  build fails on a mismatch. A cached library from another release is
+  downloaded again.
+* macOS: the Flex delegate dylib now needs macOS 12.0 or newer at run time
+  (the TensorFlow v2.20.0 one needed macOS 15.2).
+* iOS: the CocoaPods archive dedup also recognises the 16 hex digit object
+  name suffix of TensorFlow v2.21.0 builds. Without it, `-force_load` hit
+  about 2600 duplicate symbols.
+
 ## 2.0.0
 
 * **Breaking:** Android is removed. flutter_litert 4.0.0 runs on LiteRT 2.x on
