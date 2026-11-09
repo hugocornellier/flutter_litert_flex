@@ -16,7 +16,7 @@ ops like Conv2DBackpropFilter, Save, and Restore.
   s.source_files     = 'Classes/**/*'
   s.dependency 'Flutter'
 
-  s.platform = :ios, '13.0'
+  s.platform = :ios, '15.0'
   s.static_framework = true
   s.swift_version = '5.0'
 

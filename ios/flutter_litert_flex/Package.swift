@@ -5,7 +5,7 @@ import PackageDescription
 let package = Package(
     name: "flutter_litert_flex",
     platforms: [
-        .iOS("13.0")
+        .iOS("15.0")
     ],
     products: [
         .library(name: "flutter-litert-flex", targets: ["flutter_litert_flex"])
