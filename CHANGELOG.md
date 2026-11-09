@@ -13,6 +13,14 @@
   downloaded again.
 * macOS: the Flex delegate dylib now needs macOS 12.0 or newer at run time
   (the TensorFlow v2.20.0 one needed macOS 15.2).
+* Linux: the x86_64 library needs glibc 2.27 or newer (the TensorFlow v2.20.0
+  one needed glibc 2.38). It is 367819776 bytes.
+* Windows: the x64 DLL is built with clang-cl, because MSVC cannot build
+  TensorFlow v2.21.0. It is 240036352 bytes. It now imports
+  `vcruntime140_threads.dll`, which flutter_litert 4.1.0 bundles next to the
+  app, so that file does not have to be installed. As before, the DLL also
+  needs the Microsoft Visual C++ Redistributable (`msvcp140.dll`,
+  `vcruntime140.dll`, `vcruntime140_1.dll`) on the user's machine.
 * iOS: the CocoaPods archive dedup also recognises the 16 hex digit object
   name suffix of TensorFlow v2.21.0 builds. Without it, `-force_load` hit
   about 2600 duplicate symbols.

@@ -67,6 +67,11 @@ final interpreter = await Interpreter.fromAsset('model.tflite', options: options
 
 Libraries are downloaded once, checked against a pinned SHA-256, and cached in the plugin directory. Subsequent builds use the cached copy.
 
+In 2.1.0 the libraries for all four platforms are built from TensorFlow v2.21.0.
+
+- **Linux:** x86_64. The library needs glibc 2.27 or newer (flutter_litert itself needs glibc 2.38).
+- **Windows:** x64. The DLL is built with clang-cl, because MSVC cannot build TensorFlow v2.21.0. It imports `vcruntime140_threads.dll`, which flutter_litert 4.1.0 bundles next to the app, so that file does not have to be installed. As with earlier versions, the DLL also needs the Microsoft Visual C++ Redistributable (`msvcp140.dll`, `vcruntime140.dll`, `vcruntime140_1.dll`) on the user's machine.
+
 ## Credits
 
 Based on TensorFlow Lite v2.21.0. See [`flutter_litert`](https://pub.dev/packages/flutter_litert) for the base inference library.
