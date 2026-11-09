@@ -30,6 +30,17 @@ dependencies:
 
 That's it. The native libraries are downloaded automatically on the first build.
 
+### Compatibility
+
+Use the matching [`flutter_litert`](https://pub.dev/packages/flutter_litert) version:
+
+| flutter_litert | flutter_litert_flex | Flex platforms |
+| --- | --- | --- |
+| 4.0.0 or newer | 2.0.0 | iOS 15+, macOS, Linux, Windows |
+| 3.10.x | 1.3.0 | Android, iOS, macOS, Linux, Windows |
+
+flutter_litert 4.0.0 and flutter_litert_flex 2.0.0 need iOS 15.0 or newer.
+
 > **iOS + Swift Package Manager:** `flutter_litert_flex` must be used alongside `flutter_litert`; the FlexDelegate links against core TFLite symbols that `flutter_litert` provides. Like `flutter_litert`, its xcframework ships `arm64` device + `arm64` *simulator* slices, so iOS **simulator** builds require an **Apple Silicon Mac**; the x86_64 (Intel) simulator is not supported under SPM. CocoaPods builds are unaffected.
 
 ## Usage

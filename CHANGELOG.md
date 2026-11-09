@@ -9,11 +9,17 @@
   `UnsupportedError`. Android apps that need flex can stay on flutter_litert
   3.10.x with flutter_litert_flex 1.3.0, or reconvert the model to LiteRT
   built-in ops.
-* **Breaking:** requires flutter_litert 4.0.0. The package now depends on
+* **Breaking:** requires
+  [flutter_litert 4.0.0](https://pub.dev/packages/flutter_litert/versions/4.0.0),
+  released with this version. The package now depends on
   `flutter_litert: ^4.0.0`, so pub can no longer pair it with an older
-  flutter_litert.
-* iOS, macOS, Linux and Windows are unchanged: same Flex delegate libraries,
-  same build-time download.
+  flutter_litert. See the
+  [flutter_litert 4.0.0 changelog](https://pub.dev/packages/flutter_litert/versions/4.0.0/changelog)
+  for its migration guide.
+* **Breaking:** the iOS minimum is now 15.0 (it was 13.0), matching
+  flutter_litert 4.0.0, whose LiteRT frameworks are built for iOS 15.0.
+* iOS, macOS, Linux and Windows otherwise keep the same Flex delegate
+  libraries and the same build-time download.
 
 ## 1.3.0
 
