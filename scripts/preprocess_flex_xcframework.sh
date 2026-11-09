@@ -133,7 +133,9 @@ files = sorted(f for f in os.listdir(tmp) if f.endswith('.o'))
 def base(name):
     raw = name.lstrip('0123456789').lstrip('_')
     import re
-    return re.sub(r'_[a-f0-9]{32}\.o$', '.o', raw)
+    # The hash suffix has 32 hex digits in TF 2.20 builds and 16 in TF 2.21
+    # (Bazel 7) builds.
+    return re.sub(r'_(?:[a-f0-9]{16}|[a-f0-9]{32})\.o$', '.o', raw)
 
 def strong_syms(path):
     out = subprocess.run(['xcrun', 'nm', '-gU', path],

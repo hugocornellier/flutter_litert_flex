@@ -154,11 +154,12 @@ with open(archive, 'rb') as f:
       # different context.o). Fix: only delete a file if ALL its strong
       # symbols are already defined in another file with the same base name.
       #
-      # Group by base name (strip index prefix and hash suffix)
+      # Group by base name (strip index prefix and hash suffix). The suffix
+      # has 32 hex digits in TF 2.20 builds and 16 in TF 2.21 (Bazel 7) builds.
       by_base = {}
       extracted.each do |f|
         raw = File.basename(f).sub(/\A(\d+_)+/, '')
-        base = raw.sub(/_[a-f0-9]{32}\.o\z/, '.o')
+        base = raw.sub(/_(?:[a-f0-9]{16}|[a-f0-9]{32})\.o\z/, '.o')
         by_base[base] ||= []
         by_base[base] << f
       end
