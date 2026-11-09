@@ -24,9 +24,9 @@ target_link_libraries(${PLUGIN_NAME} PRIVATE PkgConfig::GTK)
 # FlexDelegate native library: downloaded once, cached in plugin directory.
 # The download is checked against FLEX_SHA256, and a cached copy with another
 # hash (an older release, or a broken download) is downloaded again.
-set(FLEX_RELEASE "flex-v1.0.0")
+set(FLEX_RELEASE "flex-v2.0.0")
 set(FLEX_LIB "libtensorflowlite_flex-linux.so")
-set(FLEX_SHA256 "2f1b626aa7e72e28dbddd7707ccb05848e140ab3a39771f515b00608205aeffc")
+set(FLEX_SHA256 "c87a71ea0f82c43c422e2e9fbf77831e3deded7abdb1a3d8604a8e05f3b4dabd")
 set(FLEX_URL "https://github.com/hugocornellier/flutter_litert/releases/download/${FLEX_RELEASE}/${FLEX_LIB}")
 set(FLEX_PATH "${CMAKE_CURRENT_SOURCE_DIR}/${FLEX_LIB}")
 

@@ -62,8 +62,8 @@ final interpreter = await Interpreter.fromAsset('model.tflite', options: options
 |----------|---------|------|-----------|
 | iOS | `TensorFlowLiteFlex.xcframework` | ~500 MB | CocoaPods or SPM (static framework) |
 | macOS | `libtensorflowlite_flex-mac.dylib` | ~132 MB | CocoaPods or SPM (bundled resource) |
-| Linux | `libtensorflowlite_flex-linux.so` | ~333 MB | CMake download |
-| Windows | `libtensorflowlite_flex-win.dll` | ~227 MB | CMake download |
+| Linux | `libtensorflowlite_flex-linux.so` | ~368 MB | CMake download |
+| Windows | `libtensorflowlite_flex-win.dll` | ~240 MB | CMake download |
 
 Libraries are downloaded once, checked against a pinned SHA-256, and cached in the plugin directory. Subsequent builds use the cached copy.
 

@@ -38,9 +38,9 @@ target_link_libraries(${PLUGIN_NAME} PRIVATE flutter flutter_wrapper_plugin)
 # FlexDelegate native library: downloaded once, cached in plugin directory.
 # The download is checked against FLEX_SHA256, and a cached copy with another
 # hash (an older release, or a broken download) is downloaded again.
-set(FLEX_RELEASE "flex-v1.0.0")
+set(FLEX_RELEASE "flex-v2.0.0")
 set(FLEX_LIB "libtensorflowlite_flex-win.dll")
-set(FLEX_SHA256 "7c0599ec1b40f9f50c2661a273227d107082d37adf60f4570ca3027e3cf765e6")
+set(FLEX_SHA256 "718053040d2561bd35f8e1eed8db0b14ad5d233a9245069137c0238a997a9b28")
 set(FLEX_URL "https://github.com/hugocornellier/flutter_litert/releases/download/${FLEX_RELEASE}/${FLEX_LIB}")
 set(FLEX_PATH "${CMAKE_CURRENT_SOURCE_DIR}/${FLEX_LIB}")
 
