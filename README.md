@@ -8,7 +8,7 @@
 
 FlexDelegate (SELECT_TF_OPS) addon for [`flutter_litert`](https://pub.dev/packages/flutter_litert). Automatically downloads and bundles the TensorFlow Lite Flex delegate native library at build time on iOS, macOS, Linux and Windows.
 
-> **Android is not supported.** flutter_litert 4.0.0 runs on LiteRT 2.x on Android, and LiteRT 2.x has no flex delegate, so flutter_litert_flex 2.0.0 has no Android side. Android apps that need flex can stay on `flutter_litert: ^3.10.0` with `flutter_litert_flex: 1.3.0`, or reconvert the model to LiteRT built-in ops.
+> **Android is not supported.** flutter_litert 4.0.0 and newer run on LiteRT 2.x on Android, and LiteRT 2.x has no flex delegate, so flutter_litert_flex 2.x has no Android side. Android apps that need flex can stay on `flutter_litert: ^3.10.0` with `flutter_litert_flex: 1.3.0`, or reconvert the model to LiteRT built-in ops.
 
 ## When do you need this?
 
@@ -24,8 +24,8 @@ If your model only uses `TFLITE_BUILTINS`, you don't need this package.
 
 ```yaml
 dependencies:
-  flutter_litert: ^4.0.0
-  flutter_litert_flex: ^2.0.0
+  flutter_litert: ^4.1.0
+  flutter_litert_flex: ^2.1.0
 ```
 
 That's it. The native libraries are downloaded automatically on the first build.
@@ -36,10 +36,11 @@ Use the matching [`flutter_litert`](https://pub.dev/packages/flutter_litert) ver
 
 | flutter_litert | flutter_litert_flex | Flex platforms |
 | --- | --- | --- |
-| 4.0.0 or newer | 2.0.0 | iOS 15+, macOS, Linux, Windows |
+| 4.1.0 or newer | 2.1.0 | iOS 15+, macOS 12+, Linux, Windows |
+| 4.0.x | 2.0.0 | iOS 15+, macOS 15.2+, Linux, Windows |
 | 3.10.x | 1.3.0 | Android, iOS, macOS, Linux, Windows |
 
-flutter_litert 4.0.0 and flutter_litert_flex 2.0.0 need iOS 15.0 or newer.
+flutter_litert 4.x and flutter_litert_flex 2.x need iOS 15.0 or newer. The macOS Flex delegate library of flutter_litert_flex 2.1.0 needs macOS 12.0 or newer (Apple Silicon).
 
 > **iOS + Swift Package Manager:** `flutter_litert_flex` must be used alongside `flutter_litert`; the FlexDelegate links against core TFLite symbols that `flutter_litert` provides. Like `flutter_litert`, its xcframework ships `arm64` device + `arm64` *simulator* slices, so iOS **simulator** builds require an **Apple Silicon Mac**; the x86_64 (Intel) simulator is not supported under SPM. CocoaPods builds are unaffected.
 
@@ -59,13 +60,18 @@ final interpreter = await Interpreter.fromAsset('model.tflite', options: options
 
 | Platform | Library | Size | Mechanism |
 |----------|---------|------|-----------|
-| iOS | `TensorFlowLiteFlex.xcframework` | ~492 MB | CocoaPods or SPM (static framework) |
-| macOS | `libtensorflowlite_flex-mac.dylib` | ~123 MB | CocoaPods or SPM (bundled resource) |
-| Linux | `libtensorflowlite_flex-linux.so` | ~333 MB | CMake download |
-| Windows | `libtensorflowlite_flex-win.dll` | ~227 MB | CMake download |
+| iOS | `TensorFlowLiteFlex.xcframework` | ~500 MB | CocoaPods or SPM (static framework) |
+| macOS | `libtensorflowlite_flex-mac.dylib` | ~132 MB | CocoaPods or SPM (bundled resource) |
+| Linux | `libtensorflowlite_flex-linux.so` | ~368 MB | CMake download |
+| Windows | `libtensorflowlite_flex-win.dll` | ~240 MB | CMake download |
 
-Libraries are downloaded once and cached in the plugin directory. Subsequent builds use the cached copy.
+Libraries are downloaded once, checked against a pinned SHA-256, and cached in the plugin directory. Subsequent builds use the cached copy.
+
+In 2.1.0 the libraries for all four platforms are built from TensorFlow v2.21.0.
+
+- **Linux:** x86_64. The library needs glibc 2.27 or newer (flutter_litert itself needs glibc 2.38).
+- **Windows:** x64. The DLL is built with clang-cl, because MSVC cannot build TensorFlow v2.21.0. It imports `vcruntime140_threads.dll`, which flutter_litert 4.1.0 bundles next to the app, so that file does not have to be installed. As with earlier versions, the DLL also needs the Microsoft Visual C++ Redistributable (`msvcp140.dll`, `vcruntime140.dll`, `vcruntime140_1.dll`) on the user's machine.
 
 ## Credits
 
-Based on TensorFlow Lite v2.20.0. See [`flutter_litert`](https://pub.dev/packages/flutter_litert) for the base inference library.
+Based on TensorFlow Lite v2.21.0. See [`flutter_litert`](https://pub.dev/packages/flutter_litert) for the base inference library.

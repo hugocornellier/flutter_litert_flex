@@ -17,7 +17,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  flutter_litert: ^4.0.0
+  flutter_litert: ^4.1.0
 
   flutter_litert_flex:
     # When depending on this package from a real application you should use:
@@ -54,6 +54,11 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+
+  assets:
+    # y = inverse(x), a FlexMatrixInverse op that only the Flex delegate can
+    # run. Made by scripts/generate_flex_test_model.py.
+    - assets/flex_matrix_inverse.tflite
 
   # To add assets to your application, add an assets section, like this:
   # assets:
