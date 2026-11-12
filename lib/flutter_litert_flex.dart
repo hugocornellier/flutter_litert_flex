@@ -8,8 +8,8 @@
 ///
 /// ```yaml
 /// dependencies:
-///   flutter_litert: ^4.1.0
-///   flutter_litert_flex: ^2.1.0
+///   flutter_litert: ^4.1.1
+///   flutter_litert_flex: ^2.1.1
 /// ```
 ///
 /// Android is not supported: LiteRT 2.x, which flutter_litert 4.0.0 uses on

@@ -1,3 +1,12 @@
+## 2.1.1
+
+* Depend on `flutter_litert: ^4.1.1`, which fixes the iOS and macOS
+  `Interpreter` slowdown with the XNNPACK delegate in 4.1.0. The Flex
+  delegate libraries are unchanged.
+* The example app resolves flutter_litert 4.1.1 and flutter_litert_flex 2.x
+  (its lock file still pinned flutter_litert 3.9.1 and flutter_litert_flex
+  1.3.0).
+
 ## 2.1.0
 
 * The Flex delegate libraries for iOS, macOS, Linux and Windows are built

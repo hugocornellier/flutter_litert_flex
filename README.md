@@ -24,8 +24,8 @@ If your model only uses `TFLITE_BUILTINS`, you don't need this package.
 
 ```yaml
 dependencies:
-  flutter_litert: ^4.1.0
-  flutter_litert_flex: ^2.1.0
+  flutter_litert: ^4.1.1
+  flutter_litert_flex: ^2.1.1
 ```
 
 That's it. The native libraries are downloaded automatically on the first build.
@@ -36,11 +36,12 @@ Use the matching [`flutter_litert`](https://pub.dev/packages/flutter_litert) ver
 
 | flutter_litert | flutter_litert_flex | Flex platforms |
 | --- | --- | --- |
-| 4.1.0 or newer | 2.1.0 | iOS 15+, macOS 12+, Linux, Windows |
+| 4.1.1 or newer | 2.1.1 | iOS 15+, macOS 12+, Linux, Windows |
+| 4.1.0 | 2.1.0 | iOS 15+, macOS 12+, Linux, Windows |
 | 4.0.x | 2.0.0 | iOS 15+, macOS 15.2+, Linux, Windows |
 | 3.10.x | 1.3.0 | Android, iOS, macOS, Linux, Windows |
 
-flutter_litert 4.x and flutter_litert_flex 2.x need iOS 15.0 or newer. The macOS Flex delegate library of flutter_litert_flex 2.1.0 needs macOS 12.0 or newer (Apple Silicon).
+flutter_litert 4.x and flutter_litert_flex 2.x need iOS 15.0 or newer. The macOS Flex delegate library of flutter_litert_flex 2.1.0 and newer needs macOS 12.0 or newer (Apple Silicon).
 
 > **iOS + Swift Package Manager:** `flutter_litert_flex` must be used alongside `flutter_litert`; the FlexDelegate links against core TFLite symbols that `flutter_litert` provides. Like `flutter_litert`, its xcframework ships `arm64` device + `arm64` *simulator* slices, so iOS **simulator** builds require an **Apple Silicon Mac**; the x86_64 (Intel) simulator is not supported under SPM. CocoaPods builds are unaffected.
 
